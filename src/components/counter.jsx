@@ -3,38 +3,47 @@ import { Card, CardImg, CardBody, CardTitle, Button } from 'reactstrap';
 
 export default class Counter extends Component {
   state = {
-    number: 0
+    number: 1,
+    harga: 10000,
+    biaya: 10000
   };
 
-  Tambah = () => {
-    this.setState(({ number }) => ({
-      number: number + 1
+  Tambah = key => {
+    this.setState(({ number, harga, biaya }) => ({
+      number: number + 1,
+      harga: harga + biaya
     }));
   };
   Kurang = () => {
-    this.setState(({ number }) => ({
-      number: number - 1
-    }));
+    var number = this.state.number;
+
+    if (number > 1) {
+      this.setState(({ number, harga, biaya }) => ({
+        number: number - 1,
+        harga: harga - biaya
+      }));
+    }
   };
 
   render() {
     return (
-      <div>
-        <Card style={{ width: '50%' }}>
-          <CardImg
-            top
-            width="100%"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-YTElG5Mlxl6gKrX-DtZ0WB3mF1b3d0i8WWxQGDKw1a9dGHzOBA"
-            alt="Card image cap"
-          />
+      <div style={{ padding: '10px' }}>
+        <Card>
+          <CardImg top width="100%" src={this.props.gambar} alt="Card" />
           <CardBody>
-            <CardTitle style={{ fontWeight: 'bold' }}>Sayur Kol</CardTitle>
+            <CardTitle style={{ fontWeight: 'bold' }}>
+              {this.props.name}
+            </CardTitle>
             <p>Pesan Berapa</p>
+            <p>Harga : {this.state.harga} </p>
             <h1>{this.state.number} </h1>
-            <Button onClick={this.Tambah} className="btn btn-success m-2">
+            <Button onClick={this.Tambah} size="lg" color="success">
               +
-            </Button>
-            <Button onClick={this.Kurang} className="btn btn-danger m-2">
+            </Button>{' '}
+            <Button
+              onClick={this.Kurang}
+              size="lg"
+              className="btn btn-danger m-2">
               -
             </Button>
           </CardBody>
